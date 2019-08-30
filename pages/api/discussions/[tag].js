@@ -1,0 +1,18 @@
+import { useRouter } from 'next/router';
+
+const Post = () => {
+    const router = useRouter();
+    const { postId } = router.query;
+    return <p>Post: {postId} </p>
+}
+
+export default Post;
+
+
+export default (req, res) => {
+    const {
+      query: { pid },
+    } = req
+  
+    res.end(`Post: ${pid}`)
+  }
