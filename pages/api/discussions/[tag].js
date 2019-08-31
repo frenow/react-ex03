@@ -1,18 +1,15 @@
 import { useRouter } from 'next/router';
-
-const Post = () => {
-    const router = useRouter();
-    const { postId } = router.query;
-    return <p>Post: {postId} </p>
-}
-
-export default Post;
-
+import axios from "axios";
 
 export default (req, res) => {
-    const {
-      query: { pid },
-    } = req
-  
-    res.end(`Post: ${pid}`)
-  }
+  const {
+    query: { tag },
+  } = req;
+
+  res.setHeader("Content-Type", "application/json");
+  axios.get('https://www.reddit.com/r/'+tag+'/top.json').then(({ data }) => {
+    res.send(JSON.stringify(data));
+  });
+
+//  res.end(`Post: ${tag}`)
+}
